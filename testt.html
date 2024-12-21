@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Iframe</title>
+</head>
+<body>
+    <button onclick="viewDocument('/lgdmsys/uploads/Image_PDF_20240925_1144.pdf')">View Document</button>
+    <div id="pdfViewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
+        <h2>Document View</h2>
+        <div id="documentContent"></div>
+        <button onclick="closeViewer()">Close</button>
+    </div>
+
+    <script>
+        function viewDocument(filePath) {
+            const fullUrl = `http://localhost${filePath}`;
+            const iframe = document.createElement('iframe');
+            iframe.src = fullUrl;
+            iframe.width = "100%";
+            iframe.height = "400px";
+            document.getElementById('documentContent').innerHTML = "";
+            document.getElementById('documentContent').appendChild(iframe);
+            document.getElementById('pdfViewer').style.display = 'block';
+        }
+
+        function closeViewer() {
+            document.getElementById('pdfViewer').style.display = 'none';
+            document.getElementById('documentContent').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

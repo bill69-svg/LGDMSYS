@@ -1,0 +1,385 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light Mode Styles */
+.light-mode {
+    background-color: #f8f9fa;
+    color: #000000;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Spinner Styles */
+.spinner {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Navigation Styles */
+.navigation {
+    background: var(--blue);
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    border-left: 10px solid var(--blue);
+    overflow: hidden;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+    transition: width 0.5s ease;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.navigation li {
+    margin: 10px 0;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.navigation ul li:hover,
+.navigation ul li.hovered {
+    background-color: var(--white);
+    color: var(--blue);
+}
+
+.navigation ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--white);
+    padding: 10px;
+    border-radius: 30px;
+    transition: color 0.3s, background 0.3s;
+}
+
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+    color: var(--blue);
+}
+
+.navigation ul li a .icon {
+    min-width: 60px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.75rem;
+}
+
+.navigation ul li a .title {
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Main Content Styles */
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: var(--white);
+    transition: width 0.5s ease, left 0.5s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.main.active {
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+/* Topbar Styles */
+.topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Added padding */
+    background-color: var(--light-blue); /* Background for topbar */
+    border-radius: 10px; /* Rounded corners for topbar */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+}
+
+
+/* Activity Log Styles */
+.activity-section {
+    margin-top: 20px;
+}
+
+.recent-activity-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.activity-log {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    list-style: none;
+}
+
+.activity-log li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* ============ Button Styles ============ */
+.button {
+    padding: 10px 15px;
+    background-color: var(--blue);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: var(--light-blue);
+}
+
+/* Form Styles */
+form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 400px; /* Could be more or less, depending on screen size */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.modal h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.modal label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.modal input[type="text"],
+.modal input[type="email"],
+.modal input[type="tel"],
+.modal input[type="file"],
+.modal select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal .button {
+    width: 100%;
+}
+
+/* ============ Cards ============ */
+.card-container {
+    display: flex; /* Use flexbox to layout cards */
+    gap: 20px; /* Space between cards */
+}
+
+.card {
+    display: flex;
+    flex-direction: column; /* Stack title, value, and canvas vertically */
+    justify-content: space-between; /* Space them evenly */
+    align-items: center; /* Center align content */
+    padding: 20px; /* Inner padding */
+    background-color: #ffffff; /* Card background color */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Shadow for depth */
+    flex: 0 0 250px; /* Fixed width for each card */
+    height: 250px; /* Fixed height for consistency */
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s; /* Transition effects */
+}
+
+.card:hover {
+    background-color: var(--blue); /* Change to your specified blue on hover */
+    color: white; /* Change text color on hover */
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); /* Deeper shadow on hover */
+}
+
+.card-value {
+    font-size: 18px; /* Value font size */
+    font-weight: bold; /* Bold font */
+    margin: 10px 0; /* Space around the value */
+    color: #333; /* Text color */
+}
+
+.card-title {
+    font-size: 20px; /* Title font size */
+    text-transform: uppercase; /* Uppercase titles */
+    color: #666; /* Title color */
+    margin-bottom: 10px; /* Space below title */
+}
+
+/* Styles for Charts Section */
+#charts {
+    margin-top: 20px;
+}
+
+.charts-container {
+    display: flex; /* Enable Flexbox */
+    flex-wrap: wrap; /* Allow wrapping to new lines if needed */
+    justify-content: space-between; /* Space out the charts */
+    gap: 20px; /* Space between the cards */
+}
+
+.chart-card {
+    flex: 1 1 calc(25% - 20px); /* Each card takes up 25% width minus gaps */
+    min-width: 250px; /* Minimum width for responsiveness */
+    height: 300px; /* Adjusted height for the card */
+    background-color: #fff; /* Card background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 16px; /* Padding inside the card */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+canvas {
+    width: 100% !important; /* Full width for the canvas */
+    height: 200px !important; /* Set a fixed height for the canvas */
+}
+
+
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--light-blue);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Styles for the Search Results Modal */
+#searchResultsModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#searchResultsModal .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+#searchResultsModal .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#searchResults ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#searchResults li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}

@@ -1,0 +1,494 @@
+<?php
+include 'session_handler.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Local Government Document Management System - Categories Page.">
+    <title>Document Management - Categories</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="staff.css">
+
+    <style>
+        /* ================== General Styles ================== */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .categories-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow for the table */
+        }
+
+        .categories-table th,
+        .categories-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--black2);
+        }
+
+        .categories-table th {
+            background-color: var(--blue);
+            color: white;
+        }
+
+        .categories-table tbody tr:hover {
+            background-color: var(--light-blue); /* Light blue hover effect */
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-category-section {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            margin: 0 5px;
+            border: none;
+            background-color: var(--button-bg-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* ============ Modal Styles ============ */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* Center modal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* ================== Form Styles ================== */
+        .category-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .submit-button {
+            padding: 10px 15px;
+            background-color: var(--blue);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: var(--light-blue);
+        }
+    </style>
+</head>
+
+<body class="light-mode">
+    <div class="container">
+
+        <!-- Navigation Section -->
+        <nav class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="logo-apple"></ion-icon>
+                        </span>
+                        <span class="title">Local Gov. Docs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="sample.php">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="documents.php">
+                        <span class="icon">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                        </span>
+                        <span class="title">Documents</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="categories.php">
+                        <span class="icon">
+                            <ion-icon name="folder-outline"></ion-icon>
+                        </span>
+                        <span class="title">Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tags.php">
+                        <span class="icon">
+                            <ion-icon name="pricetags-outline"></ion-icon>
+                        </span>
+                        <span class="title">Tags</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="versions.php">
+                        <span class="icon">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                        </span>
+                        <span class="title">Versions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.php">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.php">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Section -->
+        <main class="main">
+            <!-- Topbar -->
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                <!-- Search bar -->
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Search documents">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <button id="themeToggle" class="button" onclick="toggleTheme()">Toggle Theme</button>
+            </div>
+
+            <!-- Add New Category Section -->
+            <div class="add-category-section">
+                <button id="addCategoryBtn" class="button" onclick="showAddCategoryModal()">Add New Category</button>
+            </div>
+
+            <!-- Categories Table -->
+            <table class="categories-table">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamically load categories from PHP -->
+                     <?php
+                    // Database connection
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = ""; // Adjust accordingly
+                    $dbname = "lgmsys";
+
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+
+                    // Check connection
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    // Fetch categories
+                    $sql = "SELECT categoryID, categoryName, description FROM categories";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['categoryName']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['description']) . "</td>";
+                            
+                            // Correct use of quotes for the delete button and other buttons
+                            echo "<td>
+                                    <div class='action-buttons'>
+                                        <!-- View button: Calls JavaScript function with categoryID -->
+                                        <button class='button' onclick=\"viewDocuments(" . $row['categoryID'] . ")\">View</button>
+                                        
+                                        <!-- Edit button: Opens modal with category data -->
+                                        <button class='button' onclick=\"openEditModal(" . htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8') . ")\">Edit</button>
+                                        
+                                        <!-- Delete button: Calls delete function with categoryID -->
+                                        <button class='button' onclick=\"deleteCategory(" . intval($row['categoryID']) . ")\">Delete</button>
+                                    </div>
+                                </td>";
+                            
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='3'>No categories found</td></tr>";
+                    }
+
+                    $conn->close();
+                    ?>
+
+                </tbody>
+            </table>
+             <!-- This is where documents will be displayed after fetching -->
+             <div id="documentsContainer"></div>
+        </main>
+    </div>
+
+    <!-- Modal for Adding New Category -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeCategoryModal">&times;</span>
+            <h2>Add New Category</h2>
+            <form id="addCategoryForm" class="category-form" action="addCategory.php" method="POST">
+                <div class="form-group">
+                    <label for="categoryName">Category Name:</label>
+                    <input type="text" id="categoryName" name="categoryName" placeholder="Enter category name" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Enter category description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="createdBy">Created By:</label>
+                    <input type="text" id="createdBy" name="createdBy" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="dateCreated">Date Created:</label>
+                    <input type="date" id="dateCreated" name="dateCreated" required>
+                </div>
+                <button type="submit" class="submit-button">Add Category</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Category Modal -->
+    <div id="categoryModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="closeCategoryModal">&times;</span>
+            <h2>Edit Category</h2>
+            <form id="editCategoryForm" class="category-form">
+                <input type="hidden" id="categoryID" name="categoryID">
+                <div class="form-group">
+                    <label for="categoryName">Category Name:</label>
+                    <input type="text" id="categoryName" name="categoryName" placeholder="Enter category name" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Enter category description" rows="4" required></textarea>
+                </div>
+                <button type="button" class="submit-button" onclick="updateCategory()">Update Category</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="samplemain.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
+    <script>
+
+        // Modal functionality
+function showAddCategoryModal() {
+    document.getElementById('categoryModal').style.display = 'block';
+}
+
+function closeAddCategoryModal() {
+    document.getElementById('categoryModal').style.display = 'none';
+}
+
+document.getElementById('closeCategoryModal').addEventListener('click', closeAddCategoryModal);
+
+// Function to open the edit modal with category data
+function openEditModal(categoryData) {
+    document.getElementById('categoryID').value = categoryData.categoryID;
+    document.getElementById('categoryName').value = categoryData.categoryName;
+    document.getElementById('description').value = categoryData.description;
+    showAddCategoryModal(); // Show the modal when editing
+}
+
+// Function to submit the updated category
+function updateCategory() {
+    var categoryID = document.getElementById('categoryID').value;
+    var categoryName = document.getElementById('categoryName').value;
+    var categoryDescription = document.getElementById('description').value;
+
+    // Send AJAX request to update the category
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "update_category.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            if (xhr.responseText.trim() === "Category updated successfully.") {
+                alert("Category updated successfully.");
+                location.reload(); // Reload the page to reflect the updated category
+            } else {
+                alert("Error updating category: " + xhr.responseText);
+            }
+            closeAddCategoryModal(); // Close the modal after updating
+        }
+    };
+    xhr.send("id=" + categoryID + "&name=" + categoryName + "&description=" + categoryDescription);
+}
+
+// Toggle theme functionality
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle('light-mode');
+    body.classList.toggle('dark-mode');
+}
+
+// Function to delete category
+function deleteCategory(categoryID) {
+    // Confirm before deletion
+    if (confirm("Are you sure you want to delete this category?")) {
+        // Send AJAX request to delete the category
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "delete_category.php?id=" + categoryID, true); // URL of your delete script
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Check the response from the server
+                if (xhr.responseText.trim() === "Category deleted successfully.") {
+                    alert("Category deleted successfully.");
+                    // Reload the page to reflect the change
+                    location.reload(); 
+                } else {
+                    alert("Error deleting category: " + xhr.responseText);
+                }
+            }
+        };
+        xhr.send();
+    }
+}
+
+// Function to view documents related to a category
+function viewDocuments(categoryID) {
+    const url = `get_category_documents.php?categoryID=${categoryID}`;
+
+    // Sending the GET request to get the documents for the category
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                console.log("Documents for Category", data); // Check the data structure in the console
+
+                // Here you can process the data (display documents, versions, etc.)
+                // For example, you can update the DOM to show the documents related to the category
+                displayDocuments(data);
+            } else {
+                alert("No documents found for this category.");
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching documents:', error);
+        });
+}
+
+// Function to display documents in the DOM
+function displayDocuments(documents) {
+    // Example: Show the documents in the console or in the DOM
+    const documentsContainer = document.getElementById('documentsContainer');
+    documentsContainer.innerHTML = ''; // Clear any previous content
+
+    documents.forEach(doc => {
+        const docElement = document.createElement('div');
+        docElement.innerHTML = `
+            <h3>${doc.documentName}</h3>
+            <p>Uploaded on: ${doc.uploadDate}</p>
+            <p>Tag: ${doc.tagName}</p>
+            <p>Version: ${doc.version_number}</p>
+            <p>Version Upload Date: ${doc.versionUploadDate}</p>
+        `;
+        documentsContainer.appendChild(docElement);
+    });
+}
+
+
+        
+    </script>
+</body>
+
+</html>

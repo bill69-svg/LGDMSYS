@@ -1,0 +1,269 @@
+/* ============ Google Fonts ============ */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+/* ============ Global Styles ============ */
+* {
+    font-family: "Ubuntu", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #2a2185;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+    --light-blue: #d3e0ff;
+    --accent-color: #ff6b6b;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--gray);
+    padding: 20px;
+    overflow-x: hidden;
+    font-size: 16px;
+    color: var(--black1);
+}
+
+/* ============ Dark Mode Variables ============ */
+.dark-mode {
+    --blue: #3c3c3c; /* Darker blue for dark mode */
+    --white: #1e1e1e; /* Dark background */
+    --gray: #2e2e2e; /* Darker gray */
+    --black1: #e0e0e0; /* Lighter text */
+    --black2: #b0b0b0; /* Gray text */
+}
+
+/* ============ Container ============ */
+.container {
+    position: relative;
+    width: 100%;
+}
+
+/* ============ Navigation ============ */
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: var(--blue);
+    border-left: 10px solid var(--blue);
+    transition: width 0.5s ease;
+    overflow: hidden;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 100; /* Ensure navigation is above other elements */
+}
+
+.navigation.active {
+    width: 80px;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.navigation ul li:hover,
+.navigation ul li.hovered {
+    background-color: var(--white);
+    color: var(--blue);
+}
+
+.navigation ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--white);
+    padding: 10px;
+    border-radius: 30px;
+    transition: color 0.3s, background 0.3s;
+}
+
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+    color: var(--blue);
+}
+
+.navigation ul li a .icon {
+    min-width: 60px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.75rem;
+}
+
+.navigation ul li a .title {
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ============ Main ============ */
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: var(--white);
+    transition: width 0.5s ease, left 0.5s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px; /* Rounded corners for main content */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.main.active {
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+.topbar {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--light-blue);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space below topbar */
+}
+
+.toggle {
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.toggle:hover {
+    transform: rotate(90deg);
+}
+
+/* ============ Search Bar ============ */
+.search {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Space below search bar */
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.search input {
+    padding: 12px;
+    border: 2px solid var(--black1);
+    border-radius: 20px;
+    font-size: 14px;
+    width: 280px;
+    transition: width 0.4s ease, background-color 0.3s ease;
+}
+
+.search input:focus {
+    width: 380px;
+    border-color: var(--blue);
+    background-color: var(--light-blue);
+    outline: none;
+}
+
+.search ion-icon {
+    font-size: 1.5rem;
+    color: var(--black2);
+    margin-left: 10px;
+}
+
+/* ============ Button Styles ============ */
+.button {
+    padding: 10px 15px;
+    background-color: var(--blue);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.3s; /* Added transform for button */
+}
+
+.button:hover {
+    background-color: var(--light-blue);
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* ============ Settings Styles ============ */
+
+.settings-section {
+    margin-top: 40px;
+}
+
+.card {
+    margin: 15px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Slightly larger border radius */
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for cards */
+    transition: box-shadow 0.3s; /* Transition for hover effect */
+}
+
+.card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.toggle-button {
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s; /* Added transform for button */
+}
+
+.toggle-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500; /* Make labels bold */
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px; /* Increased padding for input fields */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s; /* Transition for border color */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--blue); /* Change border color on focus */
+}
+
+.hidden {
+    display: none;
+}
